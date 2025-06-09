@@ -181,10 +181,14 @@ document.getElementById("loadBtn").addEventListener("click", () => {
   updateTotal();
   alert("Data loaded!");
 });
-
+function formatDateToDDMMYYYY(dateStr) {
+  if (!dateStr) return "";
+  const [year, month, day] = dateStr.split("-");
+  return `${day}-${month}-${year}`;
+}
 // Generate WhatsApp text
 document.getElementById("generateBtn").addEventListener("click", () => {
-  const dateVal = dateInput.value || "N/A";
+  const dateVal = formatDateToDDMMYYYY(dateInput.value) || "N/A";
   let text = `*MANPOWER DETAILS*\n*${dateVal}*\n`;
 
   fields.forEach(({ id, label }, idx) => {

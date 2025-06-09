@@ -104,10 +104,14 @@ document.getElementById("loadBtn").addEventListener("click", () => {
 document.getElementById("addHeadingBtn").addEventListener("click", () => {
   headingsContainer.appendChild(createHeadingSection());
 });
-
+function formatDateToDDMMYYYY(dateStr) {
+  if (!dateStr) return "";
+  const [year, month, day] = dateStr.split("-");
+  return `${day}-${month}-${year}`;
+}
 // Generate WhatsApp text
 document.getElementById("generateBtn").addEventListener("click", () => {
-  const dateVal = dateInput.value || "N/A";
+  const dateVal = formatDateToDDMMYYYY(dateInput.value) || "N/A";
   let text = `*DAILY PROGRESS*\n*${dateVal}*\n`;
 
   const sections = headingsContainer.querySelectorAll(".heading-section");
@@ -125,12 +129,13 @@ document.getElementById("generateBtn").addEventListener("click", () => {
   });
 
   document.getElementById("outputText").value = text;
-  navigator.clipboard.writeText(text)
+  navigator.clipboard
+    .writeText(text)
     .then(() => {
-      console,log("copy")
+      console, log("copy");
       // alert("WhatsApp text copied to clipboard!");
     })
-    .catch(err => {
+    .catch((err) => {
       console.error("Could not copy text: ", err);
     });
 });
