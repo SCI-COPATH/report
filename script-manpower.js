@@ -1,4 +1,4 @@
-// Default fields and their labels
+// Default fields and their labels (same as before)
 const defaultFields = [
   { id: "mlcp", label: "MLCP" },
   { id: "ugSump", label: "UG SUMP" },
@@ -25,56 +25,74 @@ const fieldsContainer = document.getElementById("fieldsContainer");
 const totalDisplay = document.getElementById("totalManpower");
 const addFieldBtn = document.getElementById("addFieldBtn");
 
-let fields = []; // will hold all fields currently on the form, each {id, label, isDefault}
+let fields = []; // { id, label, isDefault }
 
+// Create one manpower field block with:
+// - Editable label input (like Tomorrow's Plan heading input)
+// - Number input for manpower
+// - Delete button
 function createFieldElement(id, label, isDefault) {
-  const div = document.createElement("div");
-  div.className = "form-group";
-  div.dataset.fieldId = id;
+  const section = document.createElement("section");
+  section.className = "heading-section";
+  section.dataset.fieldId = id;
 
-  // Label
-  const labelEl = document.createElement("label");
-  labelEl.setAttribute("for", id);
-  labelEl.textContent = label;
-  div.appendChild(labelEl);
+  // Editable label input (same style as Tomorrow's Plan)
+  const labelInput = document.createElement("input");
+  labelInput.type = "text";
+  labelInput.value = label;
+  labelInput.className = "heading-input";
+  labelInput.setAttribute("aria-label", "Manpower field name");
+  labelInput.title = "Edit manpower field name";
+  section.appendChild(labelInput);
 
-  // Input
+  // Number input for manpower count
   const inputEl = document.createElement("input");
   inputEl.type = "number";
   inputEl.min = "0";
-  inputEl.id = id;
   inputEl.placeholder = "Enter manpower";
-  div.appendChild(inputEl);
+  inputEl.style.width = "150px";
+  inputEl.style.padding = "6px 8px";
+  inputEl.style.fontSize = "1rem";
+  inputEl.style.borderRadius = "4px";
+  inputEl.style.border = "1px solid #ccc";
+  inputEl.style.marginBottom = "10px";
+  section.appendChild(inputEl);
 
-  // Delete button (always visible)
+  // Delete button (red cross, same style as Tomorrow's Plan)
   const delBtn = document.createElement("button");
   delBtn.type = "button";
-  delBtn.className = "delete-btn";
-  delBtn.textContent = "❌";
-  delBtn.title = "Delete this field";
-  delBtn.style.marginLeft = "10px";
-  div.appendChild(delBtn);
+  delBtn.className = "remove-btn";
+  delBtn.textContent = "✖";
+  delBtn.title = "Delete this manpower field";
+  section.appendChild(delBtn);
 
   // Delete handler
   delBtn.addEventListener("click", () => {
-    // Remove from DOM
-    div.remove();
-    // Remove from fields array
+    section.remove();
     fields = fields.filter((f) => f.id !== id);
-    // Update total
     updateTotal();
   });
 
-  // Update total on input
+  // Update total when manpower input changes
   inputEl.addEventListener("input", updateTotal);
 
-  return div;
+  // Update label in fields array when labelInput changes
+  labelInput.addEventListener("input", (e) => {
+    const newLabel = e.target.value.trim();
+    const index = fields.findIndex((f) => f.id === id);
+    if (index !== -1) {
+      fields[index].label = newLabel || "Unnamed Field";
+    }
+  });
+
+  return section;
 }
 
+// Initialize default fields on page load
 function initializeFields() {
   fieldsContainer.innerHTML = "";
   fields = [];
-  // Insert default fields
+
   defaultFields.forEach((f) => {
     fields.push({ id: f.id, label: f.label, isDefault: true });
     const el = createFieldElement(f.id, f.label, true);
@@ -83,19 +101,26 @@ function initializeFields() {
   updateTotal();
 }
 
+// Update total manpower display
 function updateTotal() {
   let total = 0;
   fields.forEach(({ id }) => {
-    const val = document.getElementById(id)?.value.trim();
+    const section = fieldsContainer.querySelector(`[data-field-id="${id}"]`);
+    if (!section) return;
+    const inputEl = section.querySelector('input[type="number"]');
+    if (!inputEl) return;
+
+    const val = inputEl.value.trim();
     if (val === "" || val === " ") return;
+
     const num = Number(val);
     if (!isNaN(num)) total += num;
   });
   totalDisplay.textContent = total;
 }
 
+// Generate a simple unique id for newly added fields
 function generateUniqueId() {
-  // Simple unique id generator for added fields
   return "field_" + Math.random().toString(36).substring(2, 9);
 }
 
@@ -105,13 +130,23 @@ document.getElementById("saveBtn").addEventListener("click", () => {
     date: dateInput.value,
     manpower: {},
   };
-  fields.forEach(({ id, label }) => {
-    const val = document.getElementById(id)?.value.trim() || "";
+
+  fields.forEach(({ id }) => {
+    const section = fieldsContainer.querySelector(`[data-field-id="${id}"]`);
+    if (!section) return;
+
+    const labelInput = section.querySelector(".heading-input");
+    const manpowerInput = section.querySelector('input[type="number"]');
+
+    const label = labelInput?.value.trim() || "Unnamed Field";
+    const val = manpowerInput?.value.trim() || "";
+
     data.manpower[id] = {
       label,
       value: val === "" || val === " " ? "N/A" : val,
     };
   });
+
   localStorage.setItem("manpowerData", JSON.stringify(data));
   alert("Data saved locally!");
 });
@@ -123,27 +158,25 @@ document.getElementById("loadBtn").addEventListener("click", () => {
     alert("No saved data found!");
     return;
   }
+
   const data = JSON.parse(saved);
   dateInput.value = data.date || new Date().toISOString().slice(0, 10);
 
-  // Clear current fields
   fieldsContainer.innerHTML = "";
   fields = [];
 
-  // Load saved fields dynamically
   for (const [id, info] of Object.entries(data.manpower)) {
-    fields.push({
-      id,
-      label: info.label,
-      isDefault: defaultFields.some((f) => f.id === id),
-    });
-    const el = createFieldElement(
-      id,
-      info.label,
-      defaultFields.some((f) => f.id === id)
-    );
+    const isDefault = defaultFields.some((f) => f.id === id);
+    fields.push({ id, label: info.label, isDefault });
+
+    const el = createFieldElement(id, info.label, isDefault);
     fieldsContainer.appendChild(el);
-    document.getElementById(id).value = info.value === "N/A" ? "" : info.value;
+
+    const section = fieldsContainer.querySelector(`[data-field-id="${id}"]`);
+    if (section) {
+      const manpowerInput = section.querySelector('input[type="number"]');
+      manpowerInput.value = info.value === "N/A" ? "" : info.value;
+    }
   }
   updateTotal();
   alert("Data loaded!");
@@ -155,7 +188,10 @@ document.getElementById("generateBtn").addEventListener("click", () => {
   let text = `*MANPOWER DETAILS*\n*${dateVal}*\n`;
 
   fields.forEach(({ id, label }, idx) => {
-    let val = document.getElementById(id)?.value.trim() || "";
+    const section = fieldsContainer.querySelector(`[data-field-id="${id}"]`);
+    if (!section) return;
+    const manpowerInput = section.querySelector('input[type="number"]');
+    let val = manpowerInput?.value.trim() || "";
     if (val === "" || val === " ") val = "N/A";
     text += `${idx + 1}. ${label}\nManpower-${val}\n`;
   });
@@ -180,7 +216,7 @@ addFieldBtn.addEventListener("click", () => {
     return;
   }
 
-  // Check for duplicate label (optional)
+  // Check duplicate by label (case insensitive)
   const duplicate = fields.some(
     (f) => f.label.toLowerCase() === newLabel.toLowerCase()
   );
@@ -196,10 +232,9 @@ addFieldBtn.addEventListener("click", () => {
   fieldsContainer.appendChild(el);
   updateTotal();
 
-  // Clear input
   inputEl.value = "";
   inputEl.focus();
 });
 
-// Initialize default fields on page load
+// Initialize on page load
 initializeFields();
