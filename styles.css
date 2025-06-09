@@ -22,8 +22,13 @@ body {
   /* Navigation */
   nav {
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
   }
   .nav-link a{
+    margin:  10px ;
     background: #17a2b8;
     color: #fff !important;
     padding: 10px;
