@@ -22,8 +22,13 @@ body {
   /* Navigation */
   nav {
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
   }
   .nav-link a{
+    margin:  10px ;
     background: #17a2b8;
     color: #fff !important;
     padding: 10px;
@@ -199,6 +204,24 @@ body {
   box-sizing: border-box;
   background-color: #fff;
 }
+/* Delete field button styles */
+.delete-field-btn {
+  margin-left: 10px;
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: background-color 0.3s ease;
+}
+
+.delete-field-btn:hover {
+  background-color: #a71d2a;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {

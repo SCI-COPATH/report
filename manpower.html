@@ -8,91 +8,27 @@
 </head>
 <body>
   <div class="container">
-    <nav><a href="index.html" class="home-link">🏠 Home</a></nav>
+  <div class="container">
+    <h1>🏗️ Project Dashboard</h1>
+    <nav class="nav-link">
+      <a class="home-link" href="manpower.html" class="btn">👷 Manpower Details</a>
+      <a class="home-link" href="progress.html" class="btn">
+        📊 Daily Progress</a>
+    </nav>
 
     <h1>👷Manpower Details</h1>
     <label for="date">Date:</label>
     <input type="date" id="date" />
-    
+
     <form id="manpowerForm">
-<div class="form-group">
-  <label for="mlcp">MLCP</label>
-  <input type="number" id="mlcp" min="0" placeholder="Enter manpower" />
-</div>
+      <div id="fieldsContainer">
+        <!-- Default fields will be inserted here by JS -->
+      </div>
 
-<div class="form-group">
-  <label for="ugSump">UG SUMP</label>
-  <input type="number" id="ugSump" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="southTerminal">SOUTH TERMINAL</label>
-  <input type="number" id="southTerminal" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="parcelBuilding">PARCEL BUILDING</label>
-  <input type="number" id="parcelBuilding" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="northTerminal">NORTH TERMINAL</label>
-  <input type="number" id="northTerminal" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="tempShift">TEMPORARY SHIFTING WORK</label>
-  <input type="number" id="tempShift" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="qcLab">QC Lab</label>
-  <input type="number" id="qcLab" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="store">Store</label>
-  <input type="number" id="store" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="elecPlumb">Electrical/Plumbing</label>
-  <input type="number" id="elecPlumb" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="mechanic">Mechanic</label>
-  <input type="number" id="mechanic" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="smpCamp">SMP camp</label>
-  <input type="number" id="smpCamp" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="rmcPump">RMC Pump</label>
-  <input type="number" id="rmcPump" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="batchingPlant">Batching plant</label>
-  <input type="number" id="batchingPlant" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="security">Security</label>
-  <input type="number" id="security" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="driver">Driver</label>
-  <input type="number" id="driver" min="0" placeholder="Enter manpower" />
-</div>
-
-<div class="form-group">
-  <label for="operators">Operators</label>
-  <input type="number" id="operators" min="0" placeholder="Enter manpower" />
+      <div id="addNewFieldContainer" style="margin: 15px 0;">
+        <input type="text" id="newFieldName" placeholder="Enter new manpower field name"
+          style="padding: 6px; width: 250px; margin-right: 10px;" />
+        <button type="button" id="addFieldBtn" style="padding: 7px 14px;">+ Add New Manpower Field</button>
 </div>
 
       <div class="total-display">
@@ -104,12 +40,11 @@
         <button type="button" id="loadBtn">Load</button>
         <button type="button" id="generateBtn">Generate WhatsApp Text</button>
       </div>
-
     </form>
 
     <textarea id="outputText" placeholder="Generated WhatsApp text will appear here..." readonly></textarea>
-    </div>
-    
-    <script src="script-manpower.js"></script>
+  </div>
+  
+  <script src="script-manpower.js"></script>
 </body>
 </html>
