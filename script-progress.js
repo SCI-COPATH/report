@@ -124,7 +124,7 @@ document.getElementById("generateBtn").addEventListener("click", () => {
 
     pointsTextareas.forEach((ta, pidx) => {
       const val = ta.value.trim() || "N/A";
-      text += `${pidx + 1}) ${val}\n`;
+      text += `   ${pidx + 1}) ${val}\n`;
     });
   });
 
