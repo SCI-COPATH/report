@@ -197,9 +197,9 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .btn-group {
+  /* .btn-group {
     flex-direction: column;
-  }
+  */
 
     .form-group input[type="number"],
     #date {
