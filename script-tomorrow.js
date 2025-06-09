@@ -107,9 +107,15 @@ document.getElementById("addHeadingBtn").addEventListener("click", () => {
   headingsContainer.appendChild(createHeadingSection());
 });
 
+function formatDateToDDMMYYYY(dateStr) {
+  if (!dateStr) return "";
+  const [year, month, day] = dateStr.split("-");
+  return `${day}-${month}-${year}`;
+}
 // Generate WhatsApp text
 document.getElementById("generateBtn").addEventListener("click", () => {
-  const dateVal = dateInput.value || "N/A";
+  
+  const dateVal = formatDateToDDMMYYYY(dateInput.value) || "N/A";
   let text = `*TOMORROW'S WORKING PLAN*\n*${dateVal}*\n`;
 
   const sections = headingsContainer.querySelectorAll(".heading-section");
