@@ -8,28 +8,27 @@
 </head>
 <body>
   <div class="container">
-  <div class="container">
     <h1>🏗️ Project Dashboard</h1>
     <nav class="nav-link">
       <a class="home-link" href="manpower.html" class="btn">👷 Manpower Details</a>
-      <a class="home-link" href="progress.html" class="btn">
-        📊 Daily Progress</a>
+      <a class="home-link" href="progress.html" class="btn">📊 Daily Progress</a>
+      <a class="home-link" href="tomorrow-plan.html" class="btn">📝 Tomorrow's Plan</a>
     </nav>
 
-    <h1>👷Manpower Details</h1>
+    <h1>👷 Manpower Details</h1>
     <label for="date">Date:</label>
     <input type="date" id="date" />
 
     <form id="manpowerForm">
       <div id="fieldsContainer">
-        <!-- Default fields will be inserted here by JS -->
+        <!-- Dynamic manpower fields with editable labels inserted here -->
       </div>
 
       <div id="addNewFieldContainer" style="margin: 15px 0;">
         <input type="text" id="newFieldName" placeholder="Enter new manpower field name"
           style="padding: 6px; width: 250px; margin-right: 10px;" />
         <button type="button" id="addFieldBtn" style="padding: 7px 14px;">+ Add New Manpower Field</button>
-</div>
+      </div>
 
       <div class="total-display">
         <strong>Total Manpower: </strong><span id="totalManpower">0</span>
@@ -44,7 +43,7 @@
 
     <textarea id="outputText" placeholder="Generated WhatsApp text will appear here..." readonly></textarea>
   </div>
-  
+
   <script src="script-manpower.js"></script>
 </body>
 </html>
