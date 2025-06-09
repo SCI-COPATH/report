@@ -197,7 +197,7 @@ document.getElementById("generateBtn").addEventListener("click", () => {
     const manpowerInput = section.querySelector('input[type="number"]');
     let val = manpowerInput?.value.trim() || "";
     if (val === "" || val === " ") val = "N/A";
-    text += `${idx + 1}. ${label}\nManpower-${val}\n`;
+    text += `\n${idx + 1}.${label}\n   Man power : ${val}\n`;
   });
 
   const total = totalDisplay.textContent;
