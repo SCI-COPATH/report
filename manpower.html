@@ -1,50 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Manpower Details</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    label {
-      display: block;
-      margin: 5px 0;
-    }
-    input[type="text"] {
-      width: 60px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Manpower Details</h1>
-  <button onclick="location.href='index.html'">🏠 Home</button>
-  <form id="manpowerForm">
-    <label>Date: <input type="date" id="date" required></label>
+  <div class="container">
+    <nav><a href="index.html" class="home-link">🏠 Home</a></nav>
 
-    <h3>Main Sites</h3>
-    <label>MLCP: <input type="text" name="MLCP"></label>
-    <label>UG SUMP: <input type="text" name="UG_SUMP"></label>
-    <label>SOUTH TERMINAL: <input type="text" name="SOUTH_TERMINAL"></label>
-    <label>PARCEL BUILDING: <input type="text" name="PARCEL_BUILDING"></label>
-    <label>NORTH TERMINAL: <input type="text" name="NORTH_TERMINAL"></label>
-    <label>TEMPORARY SHIFTING WORK: <input type="text" name="TEMP_SHIFTING"></label>
-    <label>QC Lab: <input type="text" name="QC_Lab"></label>
-    <label>Store: <input type="text" name="Store"></label>
-    <label>Electrical/Plumbing: <input type="text" name="Electrical_Plumbing"></label>
-    <label>Mechanic: <input type="text" name="Mechanic"></label>
-    <label>SMP camp: <input type="text" name="SMP_camp"></label>
-    <label>RMC Pump: <input type="text" name="RMC_Pump"></label>
-    <label>Batching plant: <input type="text" name="Batching_Plant"></label>
-    <label>Security: <input type="text" name="Security"></label>
-    <label>Driver: <input type="text" name="Driver"></label>
-    <label>Operators: <input type="text" name="Operators"></label>
+    <h1>Manpower Details</h1>
+    <label for="date">Date:</label>
+    <input type="date" id="date" />
+    
+    <form id="manpowerForm">
+<div class="form-group">
+  <label for="mlcp">1. MLCP</label>
+  <input type="number" id="mlcp" min="0" placeholder="Enter manpower" />
+</div>
 
-    <h3>Total Manpower: <span id="total">0</span></h3>
+<div class="form-group">
+  <label for="ugSump">2. UG SUMP</label>
+  <input type="number" id="ugSump" min="0" placeholder="Enter manpower" />
+</div>
 
-    <button type="button" onclick="generateWhatsappText()">📋 Copy WhatsApp Text</button>
-    <button type="button" onclick="saveManpowerData()">💾 Save Data</button>
-    <button type="button" onclick="loadManpowerData()">📥 Load Previous Data</button>
-  </form>
+<div class="form-group">
+  <label for="southTerminal">3. SOUTH TERMINAL</label>
+  <input type="number" id="southTerminal" min="0" placeholder="Enter manpower" />
+</div>
 
-  <script src="manpower.js"></script>
+<div class="form-group">
+  <label for="parcelBuilding">4. PARCEL BUILDING</label>
+  <input type="number" id="parcelBuilding" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="northTerminal">5. NORTH TERMINAL</label>
+  <input type="number" id="northTerminal" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="tempShift">6. TEMPORARY SHIFTING WORK</label>
+  <input type="number" id="tempShift" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="qcLab">QC Lab</label>
+  <input type="number" id="qcLab" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="store">Store</label>
+  <input type="number" id="store" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="elecPlumb">Electrical/Plumbing</label>
+  <input type="number" id="elecPlumb" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="mechanic">Mechanic</label>
+  <input type="number" id="mechanic" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="smpCamp">SMP camp</label>
+  <input type="number" id="smpCamp" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="rmcPump">RMC Pump</label>
+  <input type="number" id="rmcPump" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="batchingPlant">Batching plant</label>
+  <input type="number" id="batchingPlant" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="security">Security</label>
+  <input type="number" id="security" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="driver">Driver</label>
+  <input type="number" id="driver" min="0" placeholder="Enter manpower" />
+</div>
+
+<div class="form-group">
+  <label for="operators">Operators</label>
+  <input type="number" id="operators" min="0" placeholder="Enter manpower" />
+</div>
+
+      <div class="total-display">
+        <strong>Total Manpower: </strong><span id="totalManpower">0</span>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" id="saveBtn">Save</button>
+        <button type="button" id="loadBtn">Load</button>
+        <button type="button" id="generateBtn">Generate WhatsApp Text</button>
+      </div>
+
+    </form>
+
+    <textarea id="outputText" placeholder="Generated WhatsApp text will appear here..." readonly></textarea>
+    </div>
+    
+    <script src="script-manpower.js"></script>
 </body>
 </html>
