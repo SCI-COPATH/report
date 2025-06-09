@@ -197,11 +197,15 @@ document.getElementById("generateBtn").addEventListener("click", () => {
     const manpowerInput = section.querySelector('input[type="number"]');
     let val = manpowerInput?.value.trim() || "";
     if (val === "" || val === " ") val = "N/A";
-    text += `\n${idx + 1}.${label}\n   Man power : ${val}\n`;
+    text +=
+      `\n*${idx + 1}.${label.toUpperCase()}*\n` +
+      "   ```" +
+      `Man power : ${val}` +
+      "```\n";
   });
 
   const total = totalDisplay.textContent;
-  text += `\n*Total Manpower*- ${total}`;
+  text += `\n*Total Manpower* : ${total}`;
 
   document.getElementById("outputText").value = text;
 

@@ -124,7 +124,7 @@ document.getElementById("generateBtn").addEventListener("click", () => {
     const pointsTextareas = section.querySelectorAll(".points-list textarea");
 
     const headingName = headingInput.value.trim() || "N/A";
-    text += `\n*${idx + 1}. ${headingName}*\n`;
+    text += `\n*${idx + 1}. ${headingName.toUpperCase()}*\n`;
 
     pointsTextareas.forEach((ta, pidx) => {
       const val = ta.value.trim() || "N/A";
