@@ -63,6 +63,80 @@ function loadDefaultHeadings() {
     headingsContainer.appendChild(createHeadingSection(h));
   });
 }
+function createHeadingSection(name = "", points = [""]) {
+  const section = document.createElement("div");
+  section.className = "heading-section";
+
+  const headingInput = document.createElement("input");
+  headingInput.className = "heading-input";
+  headingInput.type = "text";
+  headingInput.placeholder = "Enter heading";
+  headingInput.value = name;
+
+  const removeBtn = document.createElement("button");
+  removeBtn.className = "remove-btn";
+  removeBtn.textContent = "×";
+  removeBtn.title = "Remove heading";
+  removeBtn.onclick = () => section.remove();
+
+  const pointsList = document.createElement("div");
+  pointsList.className = "points-list";
+
+  function addPoint(value = "") {
+    const pointWrapper = document.createElement("div");
+    pointWrapper.className = "point-wrapper";
+    pointWrapper.style.display = "flex";
+    pointWrapper.style.gap = "10px";
+    pointWrapper.style.alignItems = "flex-start";
+    pointWrapper.style.marginBottom = "8px";
+
+    const textarea = document.createElement("textarea");
+    textarea.placeholder = "Enter working plan point";
+    textarea.value = value;
+    textarea.style.flex = "1";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.type = "button";
+    deleteBtn.className = "delete-point-btn";
+    deleteBtn.textContent = "×";
+    deleteBtn.title = "Remove this point";
+
+    deleteBtn.onclick = () => {
+      pointWrapper.remove();
+      updateDeleteButtonsVisibility();
+    };
+
+    pointWrapper.appendChild(textarea);
+    pointWrapper.appendChild(deleteBtn);
+    pointsList.appendChild(pointWrapper);
+
+    updateDeleteButtonsVisibility();
+  }
+
+  function updateDeleteButtonsVisibility() {
+    const wrappers = pointsList.querySelectorAll(".point-wrapper");
+    const deleteBtns = pointsList.querySelectorAll(".delete-point-btn");
+    if (wrappers.length <= 1) {
+      deleteBtns.forEach((btn) => (btn.style.display = "none"));
+    } else {
+      deleteBtns.forEach((btn) => (btn.style.display = "inline-block"));
+    }
+  }
+
+  points.forEach((p) => addPoint(p));
+
+  const addPointBtn = document.createElement("button");
+  addPointBtn.type = "button";
+  addPointBtn.textContent = "+ Add Point";
+  addPointBtn.onclick = () => addPoint();
+
+  section.appendChild(headingInput);
+  section.appendChild(removeBtn);
+  section.appendChild(pointsList);
+  section.appendChild(addPointBtn);
+
+  return section;
+}
 
 // Save/load buttons
 document.getElementById("saveBtn").addEventListener("click", () => {
@@ -95,7 +169,7 @@ document.getElementById("loadBtn").addEventListener("click", () => {
     return;
   }
   const data = JSON.parse(saved);
-  dateInput.value = data.date || tomorrowDate.toISOString().slice(0, 10);
+  dateInput.value = tomorrowDate.toISOString().slice(0, 10); //data.date || ;
   headingsContainer.innerHTML = "";
   data.headings.forEach(({ headingName, points }) => {
     headingsContainer.appendChild(createHeadingSection(headingName, points));

@@ -199,9 +199,10 @@ document.getElementById("generateBtn").addEventListener("click", () => {
     if (val === "" || val === " ") val = "N/A";
     text +=
       `\n*${idx + 1}.${label.toUpperCase()}*\n` +
-      "   ```" +
+      // "   ```" +
       `Man power : ${val}` +
-      "```\n";
+      // "```" +
+      "\n";
   });
 
   const total = totalDisplay.textContent;

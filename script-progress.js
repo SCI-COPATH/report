@@ -34,11 +34,54 @@ function createHeadingSection(name = "", points = [""]) {
   const pointsList = document.createElement("div");
   pointsList.className = "points-list";
 
+  // function addPoint(value = "") {
+  //   const textarea = document.createElement("textarea");
+  //   textarea.placeholder = "Enter progress point";
+  //   textarea.value = value;
+  //   pointsList.appendChild(textarea);
+  // }
   function addPoint(value = "") {
+    const pointWrapper = document.createElement("div");
+    pointWrapper.className = "point-wrapper";
+    pointWrapper.style.display = "flex";
+    pointWrapper.style.gap = "10px";
+    pointWrapper.style.alignItems = "flex-start";
+    pointWrapper.style.marginBottom = "8px";
+
     const textarea = document.createElement("textarea");
     textarea.placeholder = "Enter progress point";
     textarea.value = value;
-    pointsList.appendChild(textarea);
+    textarea.style.flex = "1";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.type = "button";
+    deleteBtn.className = "delete-point-btn";
+    deleteBtn.textContent = "×";
+    deleteBtn.title = "Delete this point";
+
+    deleteBtn.onclick = () => {
+      pointWrapper.remove();
+      updateDeleteButtonsVisibility();
+    };
+
+    pointWrapper.appendChild(textarea);
+    pointWrapper.appendChild(deleteBtn);
+    pointsList.appendChild(pointWrapper);
+
+    updateDeleteButtonsVisibility();
+  }
+
+  function updateDeleteButtonsVisibility() {
+    const allPointsLists = document.querySelectorAll(".points-list");
+    allPointsLists.forEach((pointsList) => {
+      const wrappers = pointsList.querySelectorAll(".point-wrapper");
+      const deleteBtns = pointsList.querySelectorAll(".delete-point-btn");
+      if (wrappers.length <= 1) {
+        deleteBtns.forEach((btn) => (btn.style.display = "none"));
+      } else {
+        deleteBtns.forEach((btn) => (btn.style.display = "inline-block"));
+      }
+    });
   }
 
   points.forEach((p) => addPoint(p));
@@ -93,7 +136,7 @@ document.getElementById("loadBtn").addEventListener("click", () => {
     return;
   }
   const data = JSON.parse(saved);
-  dateInput.value = data.date || new Date().toISOString().slice(0, 10);
+  dateInput.value = new Date().toISOString().slice(0, 10); //data.date ||
   headingsContainer.innerHTML = "";
   data.headings.forEach(({ headingName, points }) => {
     headingsContainer.appendChild(createHeadingSection(headingName, points));
