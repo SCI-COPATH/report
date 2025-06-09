@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manpower Details</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+    input[type="text"] {
+      width: 60px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Manpower Details</h1>
+  <button onclick="location.href='index.html'">🏠 Home</button>
+  <form id="manpowerForm">
+    <label>Date: <input type="date" id="date" required></label>
+
+    <h3>Main Sites</h3>
+    <label>MLCP: <input type="text" name="MLCP"></label>
+    <label>UG SUMP: <input type="text" name="UG_SUMP"></label>
+    <label>SOUTH TERMINAL: <input type="text" name="SOUTH_TERMINAL"></label>
+    <label>PARCEL BUILDING: <input type="text" name="PARCEL_BUILDING"></label>
+    <label>NORTH TERMINAL: <input type="text" name="NORTH_TERMINAL"></label>
+    <label>TEMPORARY SHIFTING WORK: <input type="text" name="TEMP_SHIFTING"></label>
+    <label>QC Lab: <input type="text" name="QC_Lab"></label>
+    <label>Store: <input type="text" name="Store"></label>
+    <label>Electrical/Plumbing: <input type="text" name="Electrical_Plumbing"></label>
+    <label>Mechanic: <input type="text" name="Mechanic"></label>
+    <label>SMP camp: <input type="text" name="SMP_camp"></label>
+    <label>RMC Pump: <input type="text" name="RMC_Pump"></label>
+    <label>Batching plant: <input type="text" name="Batching_Plant"></label>
+    <label>Security: <input type="text" name="Security"></label>
+    <label>Driver: <input type="text" name="Driver"></label>
+    <label>Operators: <input type="text" name="Operators"></label>
+
+    <h3>Total Manpower: <span id="total">0</span></h3>
+
+    <button type="button" onclick="generateWhatsappText()">📋 Copy WhatsApp Text</button>
+    <button type="button" onclick="saveManpowerData()">💾 Save Data</button>
+    <button type="button" onclick="loadManpowerData()">📥 Load Previous Data</button>
+  </form>
+
+  <script src="manpower.js"></script>
+</body>
+</html>
